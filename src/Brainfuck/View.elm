@@ -4,7 +4,7 @@ import Brainfuck.Examples exposing (examples)
 import Brainfuck.Types exposing (Model, Msg(..), StdOut(..))
 import Browser exposing (Document)
 import Char
-import Html exposing (Html, a, br, button, code, div, h1, p, section, text, textarea)
+import Html exposing (Html, a, br, button, code, div, h1, p, text, textarea)
 import Html.Attributes exposing (class, href, id, placeholder, value)
 import Html.Events exposing (onClick, onInput)
 import Html.Keyed as Keyed
@@ -16,7 +16,7 @@ view : Model -> Document Msg
 view model =
     { title = "Brainfuck interpreter"
     , body =
-        [ section []
+        [ div [ class "main" ]
             [ h1 [] [ text "Brainfuck interpreter" ]
             , lazy2 viewCode model.generation model.code
             , lazy2 viewStdin model.generation model.stdIn

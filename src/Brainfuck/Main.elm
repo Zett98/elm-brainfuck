@@ -1,4 +1,4 @@
-module Brainfuck.Main exposing (init, main, stdoutFromResult, subscriptions, update)
+module Brainfuck.Main exposing (init, main)
 
 import Brainfuck.Eval as Eval
 import Brainfuck.Types exposing (Model, Msg(..), StdOut(..))
@@ -62,7 +62,7 @@ update msg model =
 
 
 subscriptions : Model -> Sub msg
-subscriptions model =
+subscriptions _ =
     Sub.none
 
 
