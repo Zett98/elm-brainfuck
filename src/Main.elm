@@ -78,12 +78,8 @@ view : Model -> Document Msg
 view model =
     { title = "URL Interceptor"
     , body =
-        [ viewLink "/"
-        , viewLink "/profile"
-        , viewLink "/reviews/the-century-of-the-self"
-        , viewLink "/reviews/public-opinion"
-        , viewLink "/reviews/shah-of-shahs"
-        , viewLink "/brainfuck"
+        [ viewLink "/" "Home"
+        , viewLink "/brainfuck" "Brainfuck Interpreter"
         , pageResolver model.url model
         ]
     }
@@ -107,6 +103,6 @@ viewBrainfuckPage model brainfuckView =
     Html.map BrainfuckMsg (brainfuckView model)
 
 
-viewLink : String -> Html Msg
-viewLink path =
-    div [] [ a [ href path ] [ text path ] ]
+viewLink : String -> String -> Html Msg
+viewLink path text_ =
+    div [] [ a [ href path ] [ text text_ ] ]
