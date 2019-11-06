@@ -5,8 +5,8 @@ import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg)
 import Brainfuck.View exposing (brainfuckView)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Html exposing (Html, a, div, header, main_, text)
-import Html.Attributes exposing (href)
+import Html exposing (Html, a, header, input, label, li, main_, nav, text, ul)
+import Html.Attributes exposing (checked, class, for, href, id, type_)
 import Router exposing (Route(..), toRoute)
 import Url
 
@@ -80,10 +80,7 @@ view model =
     , body =
         [ main_
             []
-            [ header []
-                [ viewLink "/" "Home"
-                , viewLink "/brainfuck" "Brainfuck Interpreter"
-                ]
+            [ viewMenu
             , pageResolver model.url model
             ]
         ]
@@ -110,4 +107,18 @@ viewBrainfuckPage model brainfuckView =
 
 viewLink : String -> String -> Html Msg
 viewLink path text_ =
-    a [ href path ] [ text text_ ]
+    li [ class "menu-item" ] [ a [ href path ] [ text text_ ] ]
+
+
+viewMenu : Html Msg
+viewMenu =
+    nav [ class "menu" ]
+        [ input [ checked True, class "menu-toggler", id "menu-toggler", type_ "checkbox" ] []
+        , label [ for "menu-toggler" ] []
+        , ul []
+            [ viewLink "/" "Home"
+            , viewLink "/brainfuck" "<++>"
+            , viewLink "/todos" "Todos"
+            , viewLink "/About" "About"
+            ]
+        ]
