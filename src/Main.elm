@@ -78,10 +78,10 @@ view : Model -> Document Msg
 view model =
     { title = "URL Interceptor"
     , body =
-        [ main_
+        [ viewMenu
+        , main_
             []
-            [ viewMenu
-            , pageResolver model.url model
+            [ pageResolver model.url model
             ]
         ]
     }
