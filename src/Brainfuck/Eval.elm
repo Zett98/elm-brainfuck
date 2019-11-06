@@ -1,6 +1,6 @@
 module Brainfuck.Eval exposing (Error(..), eval)
 
-import Brainfuck.Parser as Parser exposing (Statement(..))
+import Brainfuck.Parser exposing (Statement(..), parseInput)
 import Brainfuck.Tape as Tape exposing (Tape)
 
 
@@ -32,7 +32,7 @@ eval : String -> List Int -> Result Error (List Int)
 eval code stdIn =
     let
         stmts =
-            Parser.parseInput code
+            parseInput code
 
         extractStdOut state =
             List.reverse state.stdOut

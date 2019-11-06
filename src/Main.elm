@@ -5,7 +5,7 @@ import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg)
 import Brainfuck.View exposing (brainfuckView)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Html exposing (Html, a, b, div, li, text, ul)
+import Html exposing (Html, a, div, text)
 import Html.Attributes exposing (href)
 import Router exposing (Route(..), toRoute)
 import Url
@@ -62,7 +62,11 @@ update msg model =
             )
 
         BrainfuckMsg brainfuckMsg ->
-            ( { model | brainfuckModel = updateBrainfuckModel brainfuckMsg model.brainfuckModel }, Cmd.none )
+            let
+                updatedModel =
+                    updateBrainfuckModel brainfuckMsg model.brainfuckModel
+            in
+            ( { model | brainfuckModel = updatedModel }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg

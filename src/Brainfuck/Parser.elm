@@ -1,10 +1,6 @@
 module Brainfuck.Parser exposing (Statement(..), parseInput)
 
 
-type alias BrainfuckCode =
-    String
-
-
 type Statement
     = Incr
     | Decr
@@ -121,7 +117,7 @@ emptyState =
     }
 
 
-parseInput : BrainfuckCode -> List Statement
+parseInput : String -> List Statement
 parseInput input =
     let
         state =
