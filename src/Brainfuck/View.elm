@@ -13,7 +13,7 @@ import String
 
 brainfuckView : BrainfuckModel -> Html BrainfuckMsg
 brainfuckView model =
-    div []
+    div [ class "brainfuck" ]
         [ h1 [] [ text "Brainfuck interpreter" ]
         , lazy2 viewCode model.generation model.code
         , lazy2 viewStdin model.generation model.stdIn

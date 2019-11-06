@@ -5,7 +5,7 @@ import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg)
 import Brainfuck.View exposing (brainfuckView)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Html exposing (Html, a, div, text)
+import Html exposing (Html, a, div, header, main_, text)
 import Html.Attributes exposing (href)
 import Router exposing (Route(..), toRoute)
 import Url
@@ -78,9 +78,14 @@ view : Model -> Document Msg
 view model =
     { title = "URL Interceptor"
     , body =
-        [ viewLink "/" "Home"
-        , viewLink "/brainfuck" "Brainfuck Interpreter"
-        , pageResolver model.url model
+        [ main_
+            []
+            [ header []
+                [ viewLink "/" "Home"
+                , viewLink "/brainfuck" "Brainfuck Interpreter"
+                ]
+            , pageResolver model.url model
+            ]
         ]
     }
 
@@ -100,9 +105,9 @@ pageResolver url model =
 
 viewBrainfuckPage : BrainfuckModel -> (BrainfuckModel -> Html BrainfuckMsg) -> Html Msg
 viewBrainfuckPage model brainfuckView =
-    Html.map BrainfuckMsg (brainfuckView model)
+    Html.map BrainfuckMsg <| brainfuckView model
 
 
 viewLink : String -> String -> Html Msg
 viewLink path text_ =
-    div [] [ a [ href path ] [ text text_ ] ]
+    a [ href path ] [ text text_ ]
