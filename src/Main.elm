@@ -5,7 +5,7 @@ import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg)
 import Brainfuck.View exposing (brainfuckView)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Html exposing (Html, a, header, input, label, li, main_, nav, text, ul)
+import Html exposing (Html, a, input, label, li, main_, nav, text, ul)
 import Html.Attributes exposing (checked, class, for, href, id, type_)
 import Router exposing (Route(..), toRoute)
 import Url
