@@ -1,4 +1,4 @@
-module Brainfuck.Types exposing (Example, Model, Msg(..), StdOut(..))
+module Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg(..), Example, StdOut(..))
 
 
 type StdOut
@@ -14,7 +14,7 @@ type alias Example =
     }
 
 
-type alias Model =
+type alias BrainfuckModel =
     { code : String
     , stdIn : String
     , stdOut : StdOut
@@ -22,7 +22,7 @@ type alias Model =
     }
 
 
-type Msg
+type BrainfuckMsg
     = Code String
     | StdIn String
     | ShowExample Example

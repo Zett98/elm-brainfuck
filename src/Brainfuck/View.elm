@@ -1,8 +1,7 @@
-module Brainfuck.View exposing (view)
+module Brainfuck.View exposing (brainfuckView)
 
 import Brainfuck.Examples exposing (examples)
-import Brainfuck.Types exposing (Model, Msg(..), StdOut(..))
-import Browser exposing (Document)
+import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg(..), StdOut(..))
 import Char
 import Html exposing (Html, a, br, button, code, div, h1, p, text, textarea)
 import Html.Attributes exposing (class, href, id, placeholder, value)
@@ -12,38 +11,34 @@ import Html.Lazy exposing (lazy, lazy2)
 import String
 
 
-view : Model -> Document Msg
-view model =
-    { title = "Brainfuck interpreter"
-    , body =
-        [ div [ class "main" ]
-            [ h1 [] [ text "Brainfuck interpreter" ]
-            , lazy2 viewCode model.generation model.code
-            , lazy2 viewStdin model.generation model.stdIn
-            , viewControls
-            , lazy viewOutput model.stdOut
-            , viewExamples
-            , p []
-                [ text "8-bit cells with overflow. "
-                , text "Reading EOF leaves the cell as-is. "
-                , text "The interpreter was written in Elm and runs "
-                , text "in the browser"
-                , text ". Examples adapted from "
-                , a
-                    [ href "https://esolangs.org/wiki/brainfuck" ]
-                    [ text "esolangs.org" ]
-                , text " and "
-                , a
-                    [ href "http://brainfuck.org" ]
-                    [ text "brainfuck.org" ]
-                , text "."
-                ]
+brainfuckView : BrainfuckModel -> Html BrainfuckMsg
+brainfuckView model =
+    div []
+        [ h1 [] [ text "Brainfuck interpreter" ]
+        , lazy2 viewCode model.generation model.code
+        , lazy2 viewStdin model.generation model.stdIn
+        , viewControls
+        , lazy viewOutput model.stdOut
+        , viewExamples
+        , p []
+            [ text "8-bit cells with overflow. "
+            , text "Reading EOF leaves the cell as-is. "
+            , text "The interpreter was written in Elm and runs "
+            , text "in the browser"
+            , text ". Examples adapted from "
+            , a
+                [ href "https://esolangs.org/wiki/brainfuck" ]
+                [ text "esolangs.org" ]
+            , text " and "
+            , a
+                [ href "http://brainfuck.org" ]
+                [ text "brainfuck.org" ]
+            , text "."
             ]
         ]
-    }
 
 
-viewCode : Int -> String -> Html Msg
+viewCode : Int -> String -> Html BrainfuckMsg
 viewCode generation code =
     Keyed.node "div"
         [ class "code" ]
@@ -59,7 +54,7 @@ viewCode generation code =
         ]
 
 
-viewStdin : Int -> String -> Html Msg
+viewStdin : Int -> String -> Html BrainfuckMsg
 viewStdin generation stdin =
     Keyed.node "div"
         [ class "stdin" ]
@@ -75,7 +70,7 @@ viewStdin generation stdin =
         ]
 
 
-viewControls : Html Msg
+viewControls : Html BrainfuckMsg
 viewControls =
     div [ class "controls" ]
         [ button [ onClick Run ] [ text "Run" ] ]
@@ -104,7 +99,7 @@ output2html output =
     List.map trans output
 
 
-viewOutput : StdOut -> Html Msg
+viewOutput : StdOut -> Html BrainfuckMsg
 viewOutput stdout =
     let
         output children =
@@ -127,7 +122,7 @@ viewOutput stdout =
                 ]
 
 
-viewExamples : Html Msg
+viewExamples : Html BrainfuckMsg
 viewExamples =
     let
         viewExample example =

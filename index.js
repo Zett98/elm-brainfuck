@@ -1,6 +1,6 @@
-import { Elm } from "./src/Brainfuck/Main.elm";
+import { Elm } from "./src/Main.elm";
 import "./scss/index.scss";
 
-Elm.Brainfuck.Main.init({
-  node: document.querySelector("main")
+Elm.Main.init({
+  node: document.getElementById("app")
 });

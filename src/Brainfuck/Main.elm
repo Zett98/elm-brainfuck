@@ -1,21 +1,17 @@
-module Brainfuck.Main exposing (init, main)
+module Brainfuck.Main exposing (initialVal, updateBrainfuckModel)
 
 import Brainfuck.Eval as Eval
-import Brainfuck.Types exposing (Model, Msg(..), StdOut(..))
-import Brainfuck.View exposing (view)
-import Browser
+import Brainfuck.Types exposing (BrainfuckModel, BrainfuckMsg(..), StdOut(..))
 import Char
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( { code = ""
-      , stdIn = ""
-      , stdOut = Empty
-      , generation = 0
-      }
-    , Cmd.none
-    )
+initialVal : BrainfuckModel
+initialVal =
+    { code = ""
+    , stdIn = ""
+    , stdOut = Empty
+    , generation = 0
+    }
 
 
 stdoutFromResult : Result Eval.Error (List Int) -> StdOut
@@ -31,14 +27,14 @@ stdoutFromResult result =
             Error "Memory bounds exceeded"
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+updateBrainfuckModel : BrainfuckMsg -> (BrainfuckModel -> BrainfuckModel)
+updateBrainfuckModel msg model =
     case msg of
         Code code ->
-            ( { model | code = code }, Cmd.none )
+            { model | code = code }
 
         StdIn stdin ->
-            ( { model | stdIn = stdin }, Cmd.none )
+            { model | stdIn = stdin }
 
         Run ->
             let
@@ -48,29 +44,12 @@ update msg model =
                 stdout =
                     stdoutFromResult <| Eval.eval model.code stdin
             in
-            ( { model | stdOut = stdout }, Cmd.none )
+            { model | stdOut = stdout }
 
         ShowExample example ->
-            ( { model
+            { model
                 | code = example.code
                 , stdIn = example.stdIn
                 , stdOut = Empty
                 , generation = model.generation + 1
-              }
-            , Cmd.none
-            )
-
-
-subscriptions : Model -> Sub msg
-subscriptions _ =
-    Sub.none
-
-
-main : Program () Model Msg
-main =
-    Browser.document
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
+            }
