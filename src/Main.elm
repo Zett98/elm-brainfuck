@@ -105,11 +105,6 @@ viewBrainfuckPage model brainfuckView =
     Html.map BrainfuckMsg <| brainfuckView model
 
 
-viewLink : String -> String -> Html Msg
-viewLink path text_ =
-    li [ class "menu-item" ] [ a [ href path ] [ text text_ ] ]
-
-
 viewMenu : Html Msg
 viewMenu =
     nav [ class "menu" ]
@@ -122,3 +117,8 @@ viewMenu =
             , viewLink "/About" "About"
             ]
         ]
+
+
+viewLink : String -> String -> Html Msg
+viewLink path text_ =
+    li [ class "menu-item" ] [ a [ href path ] [ text text_ ] ]
